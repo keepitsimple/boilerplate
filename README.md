@@ -1,8 +1,8 @@
-# Boilerplate
+# Boilerplate: mono repository for api, frontend, postgresql & redis in docker containers 
 
 This boilerplate provides an integrated technology stack that consists of
 
-* [Node.js](https://nodejs.org/en/) for the backend.
+* [Node.js ver 12.x (LTS)](https://nodejs.org/en/) for the backend.
 * [React.js](https://reactjs.org/) for the frontend with many other libraries
   already integrated such as redux, react-router, redux-saga, etc.
 * [Docker](https://www.docker.com) for containers.
@@ -11,11 +11,10 @@ This boilerplate provides an integrated technology stack that consists of
 * [Jenkins](https://jenkins.io) to test, build and deploy the application.
 * [Kubernetes](https://kubernetes.io) to orchestrate the container deployment.
 * [PostgreSQL](https://www.postgresql.org/)
-  (see the `create-boilerplate-app` script) as database engines.
   
   
 Contains a huge amount of best practices already implemented for you
-* Preconfigured for ES8 (ES2017)
+* Preconfigured for ES8 (ES2017)  + optional chaining extension (operator **'.?'**)
 * Integrated [JavaScript Standard Style](https://standardjs.com/)
 * Provides fast and powerful local application development. Including:
   hot-reloading, local utilities, dev tools (linters, git hooks),
@@ -24,25 +23,13 @@ Contains a huge amount of best practices already implemented for you
 
 Some of the best practices include:
 
-*  Caching dependencies for faster builds
-* 🔒 Properly storage of secrets outside the code
-* 💊 Healthcheck implementations
-* ✒️ Linters and code prettifiers
-* 👤 Complete auth infrastructure based on JWT
-* 🏛 Source code architecture that scales
-
-## Detailed info
-
-### API
-
-* Node.js ver 12 (LTS) - the latest production version
-* ES2017 + optional chaining extension (operator **'.?'**)
-* Hot-reloading
-
-### Frontend
-
-* Create react application
-* CRACO (Create React App Configuration Override)
+* Caching dependencies for faster builds
+* Properly storage of secrets outside the code
+* Healthcheck implementations
+* Linters and code prettifiers
+* Complete auth infrastructure based on JWT
+* Source code architecture that scales
+* [Create React Application](https://github.com/facebook/create-react-app) with [CRACO](https://github.com/gsoft-inc/craco) (Create React App Configuration Override)
 
 
 # Table of contents
@@ -125,9 +112,11 @@ container: you should use `CTRL+C` to stop the running Docker instance and
 restart it to see your changes. To avoid that when doing simple changes (like
 adding a package), you can do something like:
 
-```
+```bash
 docker-compose run api yarn add $YOUR_PACKAGE$
 ```
+
+or you can run `yarn add $YOUR_PACKAGE$` inside the container.
 
 ### Customizing Style
 
