@@ -1,0 +1,31 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Boilerplate API",
+  "author": "Roman Podlinov",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "babel src -d dist",
+    "start": "nodemon --exec babel-node src/index.js",
+    "start:debug": "nodemon  --inspect=0.0.0.0:9228 --exec babel-node src/index.js",
+    "start:prod": "node --max_old_space_size=4096 dist/index.js",
+    "test:unit": "jest --detectOpenHandles tests/unit/",
+    "test:integration": "jest --runInBand --detectOpenHandles tests/integration/"
+  },
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "pg": "^7.18.2",
+    "pino": "^5.16.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "babel-preset-latest-node": "^4.0.1",
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2"
+  }
+}

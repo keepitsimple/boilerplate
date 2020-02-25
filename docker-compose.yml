@@ -1,0 +1,60 @@
+version: '3'
+
+volumes:
+  api_node_modules:
+  api_yarn_cache:
+  front_node_modules:
+
+services:
+  api:
+    build:
+      context: api/.
+      # There are 2 Dockerfile versions: the default version for all cases except development and the development version
+      dockerfile: Dockerfile
+    command: ["/bin/sh", "-c", "yarn start"]
+    depends_on:
+      - db
+      - redis
+    environment:
+      - NODE_ENV=local
+      - NODE_TLS_REJECT_UNAUTHORIZED=0  #For Node.js setting the NODE_TLS_REJECT_UNAUTHORIZED='0' makes TLS connections and HTTPS requests insecure by disabling certificate verification.
+    env_file:
+      - api/.env
+    ports:
+      - 8080:8080
+    volumes:
+      - ./api/.:/opt/app                        # map ./api to /opt/app
+      - api_node_modules:/opt/app/node_modules  # override local ./api/node_modules/ by persisted named docker volume; the volume persists restarts but can be cleaned by "docker system prune --volumes"
+      - api_yarn_cache:/opt/yarn-cache          # we use yarn cache to speedup installation for the modules.
+
+
+  frontend:
+    build:
+      context: frontend/.
+      # Use here development version for local development environment
+      dockerfile: Dockerfile.dev
+    command: ["/bin/sh", "-c", "yarn && yarn start"]
+    depends_on:
+      - api
+    env_file:
+      - frontend/.env
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/.:/opt/app                     # map ./frontend to /opt/app
+      - front_node_modules:/opt/app/node_modules  # override local ./app/node_modules/ by persisted named docker volume; the volume persists restarts but can be cleaned by "docker system prune --volumes"
+
+  db:
+    image: postgres:12-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: o5MU9UhWaHNUXfrMqU~Ho
+      POSTGRES_USER: postgres
+      POSTGRES_DB: boilerplate
+    ports:
+      - 8432:5432
+
+  redis:
+    image: redis:alpine
+    ports:
+      - 6378:6379

@@ -1,0 +1,4 @@
+{
+  "presets": [["latest-node", { "target": "12" }]],
+  "plugins": ["@babel/plugin-proposal-optional-chaining"]
+}
