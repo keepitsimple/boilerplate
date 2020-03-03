@@ -4,16 +4,25 @@
   "private": true,
   "description": "Boilerplate API",
   "author": "Roman Podlinov",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "babel src -d dist",
-    "start": "nodemon --exec babel-node src/index.js",
+    "prepack": "rm -Rf dist && tsc && chmod +x dist/cli.js",
+    "watch": "mkdir -p dist && touch dist/cli.js && chmod +x dist/cli.js && tsc --watch",
+    "build": "tsc",
+    "start": "tsc-watch --onSuccess \"node dist/index.js\"",
     "start:debug": "nodemon  --inspect=0.0.0.0:9228 --exec babel-node src/index.js",
     "start:prod": "node --max_old_space_size=4096 dist/index.js",
     "test:unit": "jest --detectOpenHandles tests/unit/",
     "test:integration": "jest --runInBand --detectOpenHandles tests/integration/"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/keepitsimple/boilerplate.git"
+  },
   "dependencies": {
+    "@types/node": "^12.12.29",
+    "@types/pg": "^7.14.1",
+    "@types/pino": "^5.15.5",
     "dotenv": "^8.0.0",
     "pg": "^7.18.2",
     "pino": "^5.16.0"
@@ -26,6 +35,14 @@
     "@babel/preset-env": "^7.8.4",
     "babel-preset-latest-node": "^4.0.1",
     "jest": "^25.1.0",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "tsc-watch": "^4.2.3",
+    "typescript": "^3.8.3"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=12.9.0"
   }
 }

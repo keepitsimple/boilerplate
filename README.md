@@ -1,5 +1,9 @@
 # Boilerplate: mono repository for api, frontend, postgresql & redis in docker containers 
 
+
+The idea of this project are inspired by the [Boilerplate from Clevertech](https://github.com/clevertech/boilerplate) project.
+
+
 This boilerplate provides an integrated technology stack that consists of
 
 * [Node.js ver 12.x (LTS)](https://nodejs.org/en/) for the backend.
