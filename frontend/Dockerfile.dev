@@ -1,4 +1,5 @@
-FROM node:12-alpine
+# This is optimized version for local development
+FROM node:14.17-alpine
 LABEL maintainer="Roman Podlinov"
 
 # Update OS
@@ -9,12 +10,8 @@ CMD ["node", "src/index.js"]
 
 # Create the working dir
 RUN mkdir -p /opt/app && mkdir /opt/.cache
+
+# Set the working dir
 WORKDIR /opt/app
 
-# Install packages + Prepare cache file
-#RUN yarn config set cache-folder /opt/.cache \
-#  && yarn
-#  && cd /opt/app && ln -s /cache/node_modules node_modules \
-#  && tar czf /.yarn-cache.tgz /usr/local/share/.cache/yarn
 
-COPY . .

@@ -1,33 +1,24 @@
 module.exports = {
-  env: {
-    browser: true,
-    es6: true,
-    node: true
-  },
+  root: true, // Important - this is root ESLint config
   extends: [
-    'plugin:react/recommended',
     'standard',
-    'standard-jsx'
+    'plugin:import/recommended'
   ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
-  },
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true
-    },
-    ecmaVersion: 2018,
-    sourceType: 'module'
-  },
   plugins: [
-    'react'
+    'node',
+    'promise'
   ],
+  // globals: {
+  //   Atomics: 'readonly',
+  //   SharedArrayBuffer: 'readonly'
+  // },
+  parserOptions: {
+    ecmaVersion: 2020
+  },
   rules: {
-    "max-lines": [ "warn", 300],
-    "max-lines-per-function": [ "warn", 30],
-    "complexity": [ "warn", 5],
-    "max-params": [ "warn", 3]
-
+    'max-lines': ['warn', 300],
+    'max-lines-per-function': ['warn', 30],
+    complexity: ['warn', 5],
+    'max-params': ['warn', 3]
   }
 }

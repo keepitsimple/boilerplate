@@ -1,17 +1,19 @@
 version: '3'
 
-volumes:
-  api_node_modules:
-  api_yarn_cache:
-  front_node_modules:
 
 services:
   api:
     build:
       context: api/.
-      # There are 2 Dockerfile versions: the default version for all cases except development and the development version
-      dockerfile: Dockerfile
-    command: ["/bin/sh", "-c", "yarn start"]
+      # There are 2 Dockerfile versions: the default version for all cases except development and the development version (.dev)
+      dockerfile: Dockerfile.dev
+      args:
+        # debug port if it needs to connect debugger to the NODE.js instance in container
+        DEBUG_PORT_NAME: 9226
+    # development start
+    command: ["sh","-c", " yarn install --check-files && yarn dev"]
+    # regular start
+    # command: ["sh", "-c", "yarn start"]
     depends_on:
       - db
       - redis
@@ -25,7 +27,7 @@ services:
     volumes:
       - ./api/.:/opt/app                        # map ./api to /opt/app
       - api_node_modules:/opt/app/node_modules  # override local ./api/node_modules/ by persisted named docker volume; the volume persists restarts but can be cleaned by "docker system prune --volumes"
-      - api_yarn_cache:/opt/yarn-cache          # we use yarn cache to speedup installation for the modules.
+      - yarn_cache:/opt/yarn-cache              # we use yarn cache to speedup installation for the modules.
 
 
   frontend:
@@ -43,18 +45,34 @@ services:
     volumes:
       - ./frontend/.:/opt/app                     # map ./frontend to /opt/app
       - front_node_modules:/opt/app/node_modules  # override local ./app/node_modules/ by persisted named docker volume; the volume persists restarts but can be cleaned by "docker system prune --volumes"
+      - yarn_cache:/opt/yarn-cache                # we use yarn cache to speedup installation for the modules.
 
-  db:
-    image: postgres:12-alpine
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: o5MU9UhWaHNUXfrMqU~Ho
-      POSTGRES_USER: postgres
-      POSTGRES_DB: boilerplate
-    ports:
-      - 8432:5432
+#  db:
+#    image: postgres:12-alpine
+#    restart: always
+#    environment:
+#      POSTGRES_PASSWORD: o5MU9UhWaHNUXfrMqU~Ho
+#      POSTGRES_USER: postgres
+#      POSTGRES_DB: mydb
+#    ports:
+#      - 8432:5432
+#
+#  db:
+#    image: mongo:4.3
+#    restart: always
+#    environment:
+#      - MONGO_INITDB_DATABASE=mydb
+#    ports:
+#      - 27017:27017
 
   redis:
     image: redis:alpine
     ports:
       - 6378:6379
+
+
+
+volumes:
+  api_node_modules:
+  yarn_cache:
+  front_node_modules:

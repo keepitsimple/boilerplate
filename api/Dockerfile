@@ -1,4 +1,4 @@
-FROM node:12.10-alpine
+FROM node:14.17-alpine
 
 # you need to use docker-compose.yml to enable debug support
 ARG DEBUG_PORT_NAME

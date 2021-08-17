@@ -1,24 +1,34 @@
-# Boilerplate: mono repository for api, frontend, postgresql & redis in docker containers 
+# Boilerplate: mono repository for api, frontend, redis & DB (PostgreSQL or MongoDB) in separate docker containers 
+
+[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+
+If you want to use docker containers in your new Javascript project this is a good start point.
+
+> For development you use your preferred IDE or editor. Your code changes initiate hot-reload in the appropriate api and/or frontend containers
+> 
+
+For the development teams this project allows to have the same dev environment across all developers (on MacOS, Linux & Windows). 
+Also, it allows to prepare the local dev environment in terms of minutes instead of hours or days.
+
+
 
 This boilerplate provides an integrated technology stack that consists of
-
-* [Node.js ver 12.x (LTS)](https://nodejs.org/en/) for the backend.
-* [React.js](https://reactjs.org/) for the frontend with many other libraries
-  already integrated such as redux, react-router, redux-saga, etc.
+* [Node.js ver 14.x (LTS)](https://nodejs.org/en/) for the backend.
+* [React.js](https://reactjs.org/) for the frontend
 * [Docker](https://www.docker.com) for containers.
 * [Docker Compose](https://docs.docker.com/compose) to run containers locally
   and during the build.
-* [Jenkins](https://jenkins.io) to test, build and deploy the application.
-* [Kubernetes](https://kubernetes.io) to orchestrate the container deployment.
-* [PostgreSQL](https://www.postgresql.org/)
+* [Redis](https://redis.io/)
+* [PostgreSQL](https://www.postgresql.org/) or [MongoDB](https://www.mongodb.com/) on your choice
   
   
 Contains a huge amount of best practices already implemented for you
-* Preconfigured for ES8 (ES2017)  + optional chaining extension (operator **'.?'**)
+* Preconfigured for ES2020
 * Integrated [JavaScript Standard Style](https://standardjs.com/)
 * Provides fast and powerful local application development. Including:
   hot-reloading, local utilities, dev tools (linters, git hooks),
   etc.
+* You can debug JS code inside container from your IDE
 * 🛠 Implements a solid workflow for building, testing and deploying applications
 
 Some of the best practices include:
@@ -71,7 +81,7 @@ and without obvious errors.
 ### Installation
 
 Local prerequisites are minimal, please follow the
-[installation instructions](INSTALL.md) carefully. We support Linux and MacOS;
+[installation instructions](docs/INSTALL.md) carefully. We support Linux and MacOS;
 Windows users can use Docker for Windows with several workarounds or use a Linux VM.
 Review your Docker Advanced settings and consider to assign more CPUs and more memory
 to the Docker process to boost performance.
@@ -84,7 +94,8 @@ Simply copy `.env.example` to `.env` and fill in your credentials as needed. The
 `.env.` file can be used to store sensitive / personal credentials without the
 risk of checking it into source control.
 
--By default [CleverAuth](https://github.com/clevertech/cleverauth) is enabled and some env variables are required for it. Take a look to `api/.env.example` and fill the required values.
+-By default [CleverAuth](https://github.com/clevertech/cleverauth) is enabled and
+some env variables are required for it. Take a look to `api/.env.example` and fill the required values.
 
 ### Running the application
 
@@ -98,7 +109,7 @@ frontend support hot reloading.
 
 > On first execution, Docker must download the base container images, which
 > might take a while. Subsequent executions will be faster, taking advantage of
-> Docker caching and Yarn caching. See [here](CACHING.md) for details about the
+> Docker caching and Yarn caching. See [here](docs/CACHING.md) for details about the
 > caching mechanisms.
 
 `docker/run` is the local development start script. This allows for changes made
@@ -222,14 +233,18 @@ It is important that each new service has a `Dockerfile`.
 ```
 project
 ├─ docker-compose.yml
+├─ package.json
 ├─ README.md
-├─ INSTALL.md
 ├─ api
 │  ├─ Dockerfile
 |  ├─ package.json
 │  └─ src
 │     ├─ file1.js
 │     └─ file2.js
+├─ docs
+│  ├─ CACHING.md
+│  ├─ INSTALL.md
+│  └─ TROUBLESHOOTING.md
 └─ frontend
    ├─ Dockerfile
    ├─ package.json
@@ -240,7 +255,7 @@ project
 
 ### Troubleshooting and useful Docker commands
 
-[Common issues](TROUBLESHOOTING.md) that developers may encounter when executing
+[Common issues](docs/TROUBLESHOOTING.md) that developers may encounter when executing
 this project and useful Docker commands.
 
 ### Deploy
