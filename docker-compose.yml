@@ -14,9 +14,9 @@ services:
     command: ["sh","-c", " yarn install --check-files && yarn dev"]
     # regular start
     # command: ["sh", "-c", "yarn start"]
-    depends_on:
-      - db
-      - redis
+#    depends_on:
+#      - db
+#      - redis
     environment:
       - NODE_ENV=local
       - NODE_TLS_REJECT_UNAUTHORIZED=0  #For Node.js setting the NODE_TLS_REJECT_UNAUTHORIZED='0' makes TLS connections and HTTPS requests insecure by disabling certificate verification.

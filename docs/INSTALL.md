@@ -34,7 +34,7 @@ If you have troubles, please contact DevOps.
 
 ## Windows
 
-While it's suboptimal, as tested in October 2018 it's possible to run this Docker stack in Windows.
+While it's suboptimal, as tested in 2020 it's possible to run this Docker stack in Windows.
 
 Tested in Windows 10.
 

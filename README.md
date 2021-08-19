@@ -4,7 +4,7 @@
 
 If you want to use docker containers in your new Javascript project this is a good start point.
 
-> For development you use your preferred IDE or editor. Your code changes initiate hot-reload in the appropriate api and/or frontend containers
+> Use your preferred IDE or editor for development. Your code changes initiate hot-reload in the appropriate api and/or frontend containers
 > 
 
 For the development teams this project allows to have the same dev environment across all developers (on MacOS, Linux & Windows). 
@@ -25,7 +25,7 @@ This boilerplate provides an integrated technology stack that consists of
 Contains a huge amount of best practices already implemented for you
 * Preconfigured for ES2020
 * Integrated [JavaScript Standard Style](https://standardjs.com/)
-* Provides fast and powerful local application development. Including:
+* Provides fast and powerful local application development in docker containers. Including:
   hot-reloading, local utilities, dev tools (linters, git hooks),
   etc.
 * You can debug JS code inside container from your IDE
@@ -66,7 +66,6 @@ _generated with [DocToc](https://github.com/thlorenz/doctoc)_
   * [Long health check](#long-health-check)
 * [Directory structure](#directory-structure)
   * [Troubleshooting and useful Docker commands](#troubleshooting-and-useful-docker-commands)
-  * [Deploy](#deploy)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -74,8 +73,8 @@ _generated with [DocToc](https://github.com/thlorenz/doctoc)_
 
 ### Local development tools
 
-First of all, run `yarn install` in the root directory. This will install local
-development tools such as `eslint` and git precommits to keep the code formatted
+First, run `yarn install` in the root directory. This will install local
+development tools such as `eslint` and git pre-commits to keep the code formatted
 and without obvious errors.
 
 ### Installation
@@ -89,13 +88,10 @@ to the Docker process to boost performance.
 ### Setting up the environment
 
 Application configuration is done by using environment variables. For local
-development, inside each app directory there should be an `.env.example` file.
+development, inside `api` & `frontend` directories there are `.env.example` file.
 Simply copy `.env.example` to `.env` and fill in your credentials as needed. The
-`.env.` file can be used to store sensitive / personal credentials without the
+`.env` file can be used to store sensitive / personal credentials without the
 risk of checking it into source control.
-
--By default [CleverAuth](https://github.com/clevertech/cleverauth) is enabled and
-some env variables are required for it. Take a look to `api/.env.example` and fill the required values.
 
 ### Running the application
 
@@ -128,10 +124,6 @@ docker-compose run api yarn add $YOUR_PACKAGE$
 ```
 
 or you can run `yarn add $YOUR_PACKAGE$` inside the container.
-
-### Customizing Style
-
-The boilerplate supports styling with SASS/SCSS. Just edit `main.scss` on `frontend/src/styles` and the boilerplate will convert it to css on-the-fly so you can take full advantage of all of SASS's features.
 
 ### Tests
 
@@ -258,27 +250,4 @@ project
 [Common issues](docs/TROUBLESHOOTING.md) that developers may encounter when executing
 this project and useful Docker commands.
 
-### Deploy
 
-Branches `development`, `staging` and `master` are deployed after build to their
-server environments.
-
-The deploy uses a `fast-path` mechanism. When a given application version is
-tested on the development site, the same container image is deployed on the
-staging/production site, avoiding to repeat the build and testing process when
-promoting a new version to staging/production. This allows to put a new version
-on production in 30 seconds and to avoid build inconsistencies.
-
-The mechanism is triggered when a build is started for a branch which is
-identical to another branch that has already been built and deployed. So, for
-example, when you merge `development` to `staging` (without code modifications)
-the build phase is skipped, and the existing image is deployed. To take
-advantage of the fast path, do not merge `development` to `staging` while
-development is still building: it's faster and safer to wait for development
-build completion before merging.
-
-As also Pull Requests are built, this mechanism works in some cases also for
-PRs. For example, if you merge a **rebased** PR to `development`, the fast path
-is used.
-
-Implementation is in `docker/fast_track` script.
