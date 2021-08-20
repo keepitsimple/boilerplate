@@ -21,7 +21,7 @@ services:
     env_file:
       - api/.env
     ports:
-      - 3000:3000
+      - "3000:3000"
     volumes:
       - ./api/.:/opt/app                        # map ./api to /opt/app
       - api_node_modules:/opt/app/node_modules  # override local ./api/node_modules/ by persisted named docker volume; the volume persists restarts but can be cleaned by "docker system prune --volumes"
@@ -39,7 +39,7 @@ services:
     env_file:
       - frontend/.env
     ports:
-      - 8080:8080
+      - "8080:3000"
     volumes:
       - ./frontend/.:/opt/app                     # map ./frontend to /opt/app
       - front_node_modules:/opt/app/node_modules  # override local ./app/node_modules/ by persisted named docker volume; the volume persists restarts but can be cleaned by "docker system prune --volumes"
