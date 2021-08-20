@@ -1,20 +1,44 @@
-import { createServer } from 'http'
+import express from 'express'
 import pino from 'pino'
-import { db } from './db'
+import pinoHttp from 'pino-http'
+import { SERVICE_UNAVAILABLE } from 'http-status'
+// import { db } from './db'
 
-const logger = pino({ level: process.env.LOG_LEVEL || 'debug' })
-const port = process.env.PORT || 3000
+const logger = pino({ level: process.env.LOG_LEVEL || 'info' })
+const PORT = process.env.PORT || 3000
 
-const server = createServer(async (req, resp) => {
-  logger.info(req.url)
-  // The pool.query method automatically returns connection back to the connection pool.
-  const data = await db.query('SELECT version()')
-  resp.end(`API server response. DB version:  ${data.rows[0].version} `)
-})
+const app = express()
 
-server.listen(port, (err) => {
-  if (err) {
-    return logger.error(err)
+if (!module.parent) {
+  app.use(pinoHttp({
+    logger,
+    autoLogging: {
+      ignorePaths: ['/healthcheck']
+    }
+  }))
+}
+
+app.get('/healthcheck', (_, res) => {
+  const healthcheck = {
+    uptime: process.uptime(),
+    message: 'OK',
+    timestamp: Date.now()
   }
-  console.log(`Server is listening on port: ${port}`)
+  try {
+    res.send(healthcheck)
+  } catch (e) {
+    healthcheck.message = e
+    res.status(SERVICE_UNAVAILABLE).send()
+  }
 })
+
+app.get('/', (req, res) => {
+  // logger.info(req.url)
+  // req.log.debug('something else')
+  res.send('Service is running...')
+})
+
+if (!module.parent) {
+  app.listen(PORT)
+  console.log('Express started on port 3000')
+}

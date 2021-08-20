@@ -14,10 +14,13 @@
     "test:integration": "jest --runInBand --detectOpenHandles tests/integration/"
   },
   "dependencies": {
+    "@tinkoff/invest-openapi-js-sdk": "^1.5.0",
     "debug": "^4.3.2",
     "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "http-status": "^1.5.0",
     "pg": "^8.7.1",
-    "pino": "^6.13.0"
+    "pino-http": "^5.6.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",
@@ -26,6 +29,7 @@
     "@babel/preset-env": "^7.15.0",
     "babel-preset-latest-node": "^5.5.1",
     "jest": "^27.0.6",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "pino-pretty": "^5.1.3"
   }
 }
