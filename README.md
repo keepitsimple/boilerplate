@@ -33,11 +33,11 @@ Contains a huge amount of best practices already implemented for you
 
 Some of the best practices include:
 
-* Caching dependencies for faster builds
+* Caching dependencies for fast local builds
 * Properly storage of secrets outside the code
+* Linters and code style checker
+* [DEBUG library](https://github.com/visionmedia/debug#readme) for easy and efficient debug messages
 * Healthcheck implementations
-* Linters and code prettifiers
-* Complete auth infrastructure based on JWT
 * Source code architecture that scales
 * [Create React Application](https://github.com/facebook/create-react-app) with [CRACO](https://github.com/gsoft-inc/craco) (Create React App Configuration Override)
 

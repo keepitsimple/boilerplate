@@ -5,15 +5,13 @@ services:
   api:
     build:
       context: api/.
-      # There are 2 Dockerfile versions: the default version for all cases except development and the development version (.dev)
+      # There are 2 Dockerfile versions: the default version for all cases except development and the development version (.dev) optimized for local development
       dockerfile: Dockerfile.dev
       args:
         # debug port if it needs to connect debugger to the NODE.js instance in container
         DEBUG_PORT_NAME: 9226
     # development start
-    command: ["sh","-c", " yarn install --check-files && yarn dev"]
-    # regular start
-    # command: ["sh", "-c", "yarn start"]
+    command: ["sh","-c", " yarn install --check-files && yarn start"]
 #    depends_on:
 #      - db
 #      - redis
@@ -23,7 +21,7 @@ services:
     env_file:
       - api/.env
     ports:
-      - 8080:8080
+      - 3000:3000
     volumes:
       - ./api/.:/opt/app                        # map ./api to /opt/app
       - api_node_modules:/opt/app/node_modules  # override local ./api/node_modules/ by persisted named docker volume; the volume persists restarts but can be cleaned by "docker system prune --volumes"
@@ -33,7 +31,7 @@ services:
   frontend:
     build:
       context: frontend/.
-      # Use here development version for local development environment
+      # development version is optimized for local development environment
       dockerfile: Dockerfile.dev
     command: ["/bin/sh", "-c", "yarn && yarn start"]
     depends_on:
@@ -41,7 +39,7 @@ services:
     env_file:
       - frontend/.env
     ports:
-      - 3000:3000
+      - 8080:8080
     volumes:
       - ./frontend/.:/opt/app                     # map ./frontend to /opt/app
       - front_node_modules:/opt/app/node_modules  # override local ./app/node_modules/ by persisted named docker volume; the volume persists restarts but can be cleaned by "docker system prune --volumes"

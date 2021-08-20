@@ -14,18 +14,18 @@
     "test:integration": "jest --runInBand --detectOpenHandles tests/integration/"
   },
   "dependencies": {
-    "dotenv": "^8.0.0",
-    "pg": "^7.18.2",
-    "pino": "^5.16.0"
+    "debug": "^4.3.2",
+    "dotenv": "^10.0.0",
+    "pg": "^8.7.1",
+    "pino": "^6.13.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.4",
-    "@babel/node": "^7.8.4",
-    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
-    "babel-preset-latest-node": "^4.0.1",
-    "jest": "^25.1.0",
-    "nodemon": "^2.0.2"
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/node": "^7.14.9",
+    "@babel/preset-env": "^7.15.0",
+    "babel-preset-latest-node": "^5.5.1",
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.12"
   }
 }

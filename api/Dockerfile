@@ -1,9 +1,6 @@
 FROM node:14.17-alpine
 
-# you need to use docker-compose.yml to enable debug support
-ARG DEBUG_PORT_NAME
-
-EXPOSE 3000 $DEBUG_PORT_NAME
+EXPOSE 3000
 
 
 # Update OS

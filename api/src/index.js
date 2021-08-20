@@ -2,7 +2,7 @@ import { createServer } from 'http'
 import pino from 'pino'
 import { db } from './db'
 
-const logger = pino({ level: 'debug' })
+const logger = pino({ level: process.env.LOG_LEVEL || 'debug' })
 const port = process.env.PORT || 3000
 
 const server = createServer(async (req, resp) => {
