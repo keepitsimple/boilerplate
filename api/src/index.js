@@ -2,6 +2,8 @@ import express from 'express'
 import pino from 'pino'
 import pinoHttp from 'pino-http'
 import { SERVICE_UNAVAILABLE } from 'http-status'
+import apiV1 from './controllers/api_v1'
+
 // import { db } from './db'
 
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' })
@@ -17,6 +19,8 @@ if (!module.parent) {
     }
   }))
 }
+
+app.use('/api/v1', apiV1)
 
 app.get('/healthcheck', (_, res) => {
   const healthcheck = {
