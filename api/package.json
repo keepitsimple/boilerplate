@@ -17,7 +17,7 @@
     "debug": "^4.3.2",
     "dotenv": "^10.0.0",
     "pg": "^8.7.1",
-    "pino": "^6.13.0"
+    "pino-http": "^5.7.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",
@@ -26,6 +26,7 @@
     "@babel/preset-env": "^7.15.0",
     "babel-preset-latest-node": "^5.5.1",
     "jest": "^27.0.6",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "pino-pretty": "^6.0.0"
   }
 }

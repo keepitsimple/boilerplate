@@ -11,7 +11,7 @@ services:
         # debug port if it needs to connect debugger to the NODE.js instance in container
         DEBUG_PORT_NAME: 9226
     # development start
-    command: ["sh","-c", " yarn install --check-files && yarn start"]
+    command: ["sh","-c", " yarn install --check-files && yarn start | yarn pino-pretty"]
 #    depends_on:
 #      - db
 #      - redis
