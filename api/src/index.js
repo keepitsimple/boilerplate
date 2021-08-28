@@ -1,7 +1,6 @@
 import { createServer, STATUS_CODES } from 'http'
 import pino from 'pino'
 import pinoHttp from 'pino-http'
-// import { db } from './db'
 
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' })
 const port = process.env.PORT || 3000
@@ -29,11 +28,12 @@ const server = createServer((req, resp) => {
     }
     return
   }
-
-  // The pool.query method automatically returns connection back to the connection pool.
-  // const data = await db.query('SELECT version()')
-  // resp.end(`API server response. DB version:  ${data.rows[0].version} `)
-  resp.end('API server running...')
+  if (req.url === '/') {
+    resp.end('API server running...')
+    return
+  }
+  resp.writeHead(404, STATUS_CODES[404], {})
+  resp.end('Not found')
 })
 
 server.listen(port, (err) => {

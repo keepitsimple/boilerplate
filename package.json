@@ -12,9 +12,6 @@
     "e2e": "testcafe chrome e2e/*.test.js",
     "db-client": "bnr --path=./api/.env db-client"
   },
-  "betterScripts": {
-    "db-client": "PGPASSWORD=$DB_PASSWORD psql -h 127.0.0.1 -U $DB_USER $DB_DATABASE"
-  },
   "lint-staged": {
     "*.{js,jsx}": [
       "eslint --fix",
