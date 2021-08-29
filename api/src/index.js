@@ -2,8 +2,13 @@ import { createServer, STATUS_CODES } from 'http'
 import pino from 'pino'
 import pinoHttp from 'pino-http'
 
+import healthCheck from './controllers/health-check'
+import troop from './controllers/troop'
+
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' })
-const port = process.env.PORT || 3000
+const port = Number(process.env.PORT) || 3000
+
+const regexNumber = /^\/\d+$/
 
 const server = createServer((req, resp) => {
   pinoHttp({
@@ -13,23 +18,13 @@ const server = createServer((req, resp) => {
     }
   })(req, resp)
   req.log.debug(req.url)
-  if (req.url === '/healthcheck') {
-    const healthcheck = {
-      message: 'OK',
-      uptime: process.uptime(),
-      timestamp: Date.now()
-    }
-    try {
-      resp.end(JSON.stringify(healthcheck))
-    } catch (e) {
-      healthcheck.message = e.message
-      resp.writeHead(503, STATUS_CODES[503], {})
-      resp.end(JSON.stringify(healthcheck))
-    }
+  if (req.url.toLowerCase() === '/healthcheck') {
+    healthCheck(resp)
     return
   }
-  if (req.url === '/') {
-    resp.end('API server running...')
+  // Only URLs like `/[number]` are accepted
+  if (req.method === 'GET' && regexNumber.test(req.url)) {
+    troop(req, resp)
     return
   }
   resp.writeHead(404, STATUS_CODES[404], {})
@@ -41,4 +36,9 @@ server.listen(port, (err) => {
     return logger.error(err)
   }
   console.log(`Server is listening on port: ${port}`)
+})
+
+process.on('uncaughtException', err => {
+  logger.error('There was an uncaught error:', err)
+  process.exit(1)
 })

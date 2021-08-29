@@ -8,10 +8,6 @@ module.exports = {
     'node',
     'promise'
   ],
-  // globals: {
-  //   Atomics: 'readonly',
-  //   SharedArrayBuffer: 'readonly'
-  // },
   parserOptions: {
     ecmaVersion: 2020
   },

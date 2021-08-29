@@ -13,34 +13,51 @@ Due to the deploy-and-forget requirement the following approaches were implement
 - container uses Node 14 Long Term Support version 
 - integrated lite, and, highly likely, the fastest Node.js logging library - PINO; it writes logs in JSON format which can be easy fed into container monitoring tools like fluentd or logstash 
 - logger support different LOG levels; the LOG level can be easy controlled by container ENV variable value
-- Health check ( url: `/healthcheck`) is implemented for control the web service status; the healthcheck request is _excluded_ from default logging
+- Health check ( url: `/healthCheck`) is implemented for control the web service status; the healthCheck request is _excluded_ from default logging
 - used minimal amount of dependencies (this project doesn't use web frameworks, but only Node.js Core); in bigger projects it will make sense to use some web framework like Express.js, Fastify.js etc
-- unit types can be changed via container ENV variable; it allows to modify the list of units without project rebuild
+- unit types can be changed via container ENV variable; if it needs to modify the unit types it's enough to modify this ENV variable and restart container with another value
+- max size of the troop can be changed via container ENV variable
 
 #### Additional point about using Docker container in the project
 
 For the development teams this project allows to have the same dev environment across all developers (on MacOS, Linux & Windows).
 Also, it allows to prepare the local dev environment in terms of a few minutes instead of hours.
 
-### Additional notes
+#### Other notes
 * Preconfigured for ES2020
-* Integrated [JavaScript Standard Style](https://standardjs.com/) via ESlint and pre-hooks
+* Integrated [JavaScript Standard Style](https://standardjs.com/) via ESLint and pre-commit hooks
 * Provides fast and powerful local application development in docker containers. Including:
   hot-reloading, local utilities, dev tools (linters, git hooks),
   etc.
-* Linters and code style checker
-* You can debug JS code inside the container from your IDE (for example MS VS Code, Jetbrains Webstorm)
-* Caching dependencies for fast local builds
+* You can debug node.js code inside the container from your IDE (for example MS VS Code, Jetbrains Webstorm)
+* Caching dependencies (docker & yarn cache) for fast local development
 
 
-* [DEBUG library](https://github.com/visionmedia/debug#readme) for easy and efficient debug messages
+### Description
+
+The microservice implements GET request with format `/[number]` like  `/123`.
+
+```bash
+curl -v http://localhost:3001/1
+curl -v http://localhost:3001/15
+curl -v http://localhost:3001/536
+curl -v http://localhost:3001/99999
+```
+
+Service returns JSON object with list of units and amount. something like this:
+
+```json
+{" \"Swordsmen\"":455,"[\"Spearmen\"":55," \"Archers\"]":26}
+
+```
 
 
-## Local Development
-### How to do local development
 
-> Use your preferred IDE or editor for development. Your code changes initiate hot-reload in the api container
->
+
+## How to do local development
+
+> Use your preferred IDE or editor for development. Your code changes initiate hot-reload in the api container. 
+
 
 ### Local development tools
 
