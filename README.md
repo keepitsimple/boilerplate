@@ -47,12 +47,8 @@ curl -v http://localhost:3001/99999
 Service returns JSON object with list of units and amount. something like this:
 
 ```json
-{" \"Swordsmen\"":455,"[\"Spearmen\"":55," \"Archers\"]":26}
-
+{ "Swordsmen":455, "Spearmen":55, "Archers":26 }
 ```
-
-
-
 
 ## How to do local development
 
@@ -117,10 +113,16 @@ docker-compose exec -it api sh
 
 ### Tests
 
-#### Running the tests
+#### Running the unit tests
 
-```
-$ docker/test
+Please go to the `api` folder and run
+
+```bash
+# run unit tests 1 time
+yarn test:unit 
+
+# if you want to use jest in the watch mode
+yarn test:unit --watch
 ```
 
 #### Creating new tests
