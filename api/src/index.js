@@ -4,8 +4,6 @@ import pinoHttp from 'pino-http'
 import { SERVICE_UNAVAILABLE } from 'http-status'
 import apiV1 from './controllers/api_v1'
 
-// import { db } from './db'
-
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' })
 const PORT = process.env.PORT || 3000
 

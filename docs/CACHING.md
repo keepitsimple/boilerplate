@@ -1,10 +1,10 @@
 ## Caching
 
-There are several caching mechanism. They are essential to achieve faster build and execution times.
+There are some caching mechanism. They are essential to achieve faster build and execution times.
 
 ### Docker cache
 
-Docker caching is achieved by careful orderding and grouping of statements in container definitions (`Dockerfile`).
+Docker caching is achieved by careful ordering and grouping of statements in container definitions (`Dockerfile`).
 Docker caching works by caching each step in the Dockerfile; if the step does not change, the cached version is used.
 We try here to design the Dockerfiles in order to minimize cache invalidations: for example, we add the code at the very end of the build process (since the code changes frequently).
 

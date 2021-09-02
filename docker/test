@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -e
-
-CONFIG_FILE=docker-compose.yml
-
-make -C api build
-make -C api test

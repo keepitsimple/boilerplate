@@ -22,8 +22,3 @@ If when trying to execute `docker/run` you get `ERROR: Bad response from Docker 
 
 Resetting to factory defaults in the docker menu (settings) fixed the issue.
 
-**No such file or directory**
-
-`ERROR: Service 'app' failed to build: lstat .cache.tgz: no such file or directory`
-
-Don't try to run the command `docker-compose up`, instead always run: `docker/run` from the project root directory.
