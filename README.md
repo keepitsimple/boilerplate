@@ -13,18 +13,12 @@
 
 
 
-The microservice implements POST request with format `/api/v1/calculator`.
+The microservice implements POST request `/api/v1/calculator`.
 
 ```bash
 curl -X POST --location "http://localhost:3000/api/v1/calculator" \
     -H "Content-Type: application/json" \
-    -d "{ 
-          \"operator\": \"+\",
-          \"operands\": {
-            \"a\": 1,
-            \"b\": 10
-          }
-        }"
+    -d "{ \"expression\": \"2+5-3\" }"
 ```
 
 Service returns JSON object like
@@ -137,5 +131,4 @@ tests and test suites.
 
 [Common issues](docs/TROUBLESHOOTING.md) that developers may encounter when executing
 this project and useful Docker commands.
-
 

@@ -34,7 +34,7 @@ class MultiplyOperator extends AbstractOperator {
 
 class DivideOperator extends AbstractOperator {
   apply (a, b) {
-    if (b === 0) throw new Error('Divide by 0 is not allowed')
+    if (b === 0) throw new EvalError('Divide by 0 is not allowed')
     return a / b
   }
 }
@@ -58,7 +58,6 @@ class Calculator {
       if (parseResult.isOperator) return parseResult.operator
       throw new Error(`Unexpected part: ${part}`)
     })
-    console.log(parsedParts)
     const { result } = parsedParts.reduce(
       (acc, part) => {
         if (typeof part === 'number') {
@@ -77,7 +76,8 @@ class Calculator {
       }, { result: 0, queuedOperator: null }
     )
 
-    return result
+    // TODO add color: RED for negative and color: GREEN for positive
+    return { result }
   }
 }
 
