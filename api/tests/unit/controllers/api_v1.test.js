@@ -1,4 +1,4 @@
-import { validate, calculate } from '../../src/controllers/api_v1/index'
+import { validate, calculate } from '../../../src/controllers/api_v1'
 
 // eslint-disable-next-line max-lines-per-function
 describe('Tests for validate function', () => {
