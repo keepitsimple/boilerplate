@@ -2,6 +2,7 @@ import express from 'express'
 import pino from 'pino'
 import pinoHttp from 'pino-http'
 import { SERVICE_UNAVAILABLE } from 'http-status'
+
 import apiV1 from './controllers/api_v1'
 
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' })
@@ -9,14 +10,19 @@ const PORT = process.env.PORT || 3000
 
 const app = express()
 
-if (!module.parent) {
-  app.use(pinoHttp({
-    logger,
-    autoLogging: {
-      ignorePaths: ['/healthcheck']
-    }
-  }))
-}
+app.use(function (req, res, next) {
+  res.header('Content-Type', 'application/json')
+  next()
+})
+
+app.use(pinoHttp({
+  logger,
+  autoLogging: {
+    ignorePaths: ['/healthcheck']
+  }
+}))
+
+app.use(express.json())
 
 app.use('/api/v1', apiV1)
 
@@ -37,10 +43,12 @@ app.get('/healthcheck', (_, res) => {
 app.get('/', (req, res) => {
   // logger.info(req.url)
   // req.log.debug('something else')
-  res.send('Service is running...')
+  res.send({
+    uptime: process.uptime(),
+    message: 'Service is running',
+    timestamp: Date.now()
+  })
 })
 
-if (!module.parent) {
-  app.listen(PORT)
-  console.log('Express started on port 3000')
-}
+app.listen(PORT)
+console.log(`Express started on port ${PORT}`)
