@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import pino from 'pino'
 import pinoHttp from 'pino-http'
 import { SERVICE_UNAVAILABLE } from 'http-status'
@@ -9,6 +10,9 @@ const logger = pino({ level: process.env.LOG_LEVEL || 'info' })
 const PORT = process.env.PORT || 3000
 
 const app = express()
+app.use(cors())
+// TODO: set secure CORS policy
+app.options('*', cors())
 
 app.use(function (req, res, next) {
   res.header('Content-Type', 'application/json')
